@@ -1,0 +1,38 @@
+export const employessData = [
+  {
+    id: 1,
+    profileImage: "/images/profile-image/user-one.jpg",
+    name: "Jahangir Khan",
+    designation: "Frontend Developer",
+    workOrders: 4,
+    tasks: 3,
+    roles: 2,
+  },
+  {
+    id: 2,
+    profileImage: "/images/profile-image/user-two.jpg",
+    name: "Sarim Khan",
+    designation: "Developer",
+    workOrders: 5,
+    tasks: 2,
+    roles: 7,
+  },
+  {
+    id: 3,
+    profileImage: "/images/profile-image/user-three.jpg",
+    name: "Haris Khan",
+    designation: "Graphic Designer",
+    workOrders: 5,
+    tasks: 2,
+    roles: 8,
+  },
+  {
+    id: 4,
+    profileImage: "/images/profile-image/user-four.jpg",
+    name: "Bilal Khan",
+    designation: "SQA Engineer",
+    workOrders: 4,
+    tasks: 3,
+    roles: 2,
+  },
+];
