@@ -11,7 +11,7 @@ export const EmployeeProvider = ({ children }) => {
     edit: false,
   });
 
-  const api = process.env.REACT_APP_API_KEY;
+  const api = "http://localhost:5000/employees";
 
   useEffect(() => {
     getEmployeeData();
