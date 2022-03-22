@@ -92,6 +92,7 @@ const ProfileImage = (props) => {
           src={profileImage}
           className="preview-image"
           onClick={() => setImage(null)}
+          alt="profile Image"
         />
       ) : (
         <>
