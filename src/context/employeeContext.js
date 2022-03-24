@@ -1,10 +1,12 @@
-import React, { createContext, useEffect, useState } from "react";
-import axios from "axios";
+import React, { createContext, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+
+import { employessData } from "../data/employessData";
 
 const EmployeeContext = createContext();
 
 export const EmployeeProvider = ({ children }) => {
-  const [employees, setEmployees] = useState([]);
+  const [employees, setEmployees] = useState(employessData);
   const [popupStatus, setPopupStatus] = useState(false); // for popUp
   const [updateEmployee, setUpdateEmployee] = useState({
     item: [],
@@ -13,40 +15,19 @@ export const EmployeeProvider = ({ children }) => {
 
   const api = "http://localhost:5000/employees";
 
-  useEffect(() => {
-    getEmployeeData();
-  }, [employees]);
-
-  const getEmployeeData = async () => {
-    await axios
-      .get(api)
-      .then((res) => {
-        setEmployees(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   // Delete Employee
 
-  const handleDelete = async (id) => {
+  const handleDelete = (id) => {
     if (window.confirm("Are You Sure You want to delete this employee?")) {
-      await axios.delete(`${api}/${id}`);
+      setEmployees(employees.filter((employee) => employee.id !== id));
     }
   };
 
   //Add Employee
 
-  const addEmployee = async (newEmployee) => {
-    await axios.post(api, {
-      profileImage: newEmployee.profileImage,
-      name: newEmployee.name,
-      designation: newEmployee.designation,
-      workOrders: newEmployee.workOrders,
-      tasks: newEmployee.tasks,
-      roles: newEmployee.roles,
-    });
+  const addEmployee = (newEmployee) => {
+    newEmployee.id = uuidv4();
+    setEmployees([newEmployee, ...employees]);
   };
 
   //Get Employee
@@ -60,17 +41,12 @@ export const EmployeeProvider = ({ children }) => {
 
   // Update Employee
 
-  const handleEmployeeUpdate = async (id, employee) => {
-    console.log(employee);
-
-    await axios.put(`${api}/${id}`, {
-      profileImage: employee.profileImage,
-      name: employee.name,
-      designation: employee.designation,
-      workOrders: employee.workOrders,
-      tasks: employee.tasks,
-      roles: employee.roles,
-    });
+  const handleEmployeeUpdate = (id, employee) => {
+    setEmployees(
+      employees.map((item) =>
+        item.id === id ? { ...item, ...employee } : item
+      )
+    );
   };
 
   // handle Popup
